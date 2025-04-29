@@ -1,0 +1,227 @@
+<!-- templates/chat.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Monoprix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #007f4e;
+            --user-color: #e3f2fd;
+            --bot-color: #f5f5f5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            width: 95%;
+            height: calc(100vh - 40px);
+        }
+
+        .chat-header {
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .chat-header h1 {
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            position: relative;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .user-message {
+            background: var(--user-color);
+            align-self: flex-end;
+            border-radius: 20px 20px 0 20px;
+        }
+
+        .bot-message {
+            background: var(--bot-color);
+            align-self: flex-start;
+            border-radius: 20px 20px 20px 0;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 15px;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+        }
+
+        .input-container {
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            gap: 10px;
+        }
+
+        #user-input {
+            flex-grow: 1;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #user-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        button {
+            padding: 12px 25px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .chat-container {
+                margin: 10px;
+                width: calc(100% - 20px);
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>
+                <i class="fas fa-robot"></i>
+                Assistant Virtuel Monoprix
+            </h1>
+        </div>
+        
+        <div class="chat-messages" id="chat-box">
+            <div class="message bot-message">
+                Bonjour ! Je suis l'assistant virtuel de Monoprix. Comment puis-je vous aider aujourd'hui ?
+            </div>
+        </div>
+
+        <div class="typing-indicator" id="typing">
+            <i class="fas fa-circle-notch fa-spin"></i>
+            Réponse en cours...
+        </div>
+
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Tapez votre message..." autofocus>
+            <button onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+                Envoyer
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const typingIndicator = document.getElementById('typing');
+
+        function addMessage(message, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            messageDiv.textContent = message;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // Ajouter le message utilisateur
+            addMessage(message, true);
+            userInput.value = '';
+            
+            // Afficher l'indicateur de saisie
+            typingIndicator.style.display = 'flex';
+            
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                
+                const data = await response.json();
+                addMessage(data.response, false);
+            } catch (error) {
+                addMessage("Désolé, une erreur s'est produite. Veuillez réessayer.", false);
+            } finally {
+                typingIndicator.style.display = 'none';
+            }
+        }
+
+        // Gérer la touche Entrée
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Vision360°</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+        <style>
+            .typeahead-list {
+                position: absolute;
+                z-index: 1000;
+                width: 100%;
+                background: white;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                display: none;
+            }
+            .typeahead-item {
+                padding: 10px;
+                cursor: pointer;
+            }
+            .typeahead-item:hover {
+                background: #f8f9fa;
+            }
+            .recommendation-card {
+                transition: transform 0.3s;
+            }
+            .recommendation-card:hover {
+                transform: translateY(-5px);
+            }
+        </style>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="signin">Vision360° </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">decision-makers</a></li>
+                        <li class="nav-item"><a class="nav-link" href="dash">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="AI">AI tools</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#recommendation">Recommandation</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#cluster">cluster</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+                <div class="masthead-subheading">Welcome To Vision360°!</div>
+                <div class="masthead-heading text-uppercase">The ultimate solution for your company</div>
+            </div>
+        </header>
+
+        <!-- Recommendation Section -->
+        <section class="page-section" id="recommendation">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Système de Recommandation</h2>
+                    <h3 class="section-subheading text-muted">Trouvez des produits similaires en temps réel</h3>
+                </div>
+                
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <div class="position-relative">
+                            <input type="text" 
+                                   id="productInput" 
+                                   class="form-control form-control-lg"
+                                   placeholder="Entrez le nom d'un produit...">
+                            <div id="typeaheadResults" class="typeahead-list"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <input type="number" 
+                               id="recommendationCount" 
+                               class="form-control form-control-lg"
+                               value="5" 
+                               min="1" 
+                               max="10">
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <button id="recommendBtn" class="btn btn-primary btn-lg w-100">
+                            Rechercher
+                        </button>
+                    </div>
+                </div>
+
+                <div id="loading" class="text-center my-5" style="display: none;">
+                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;"></div>
+                    <p class="mt-2">Recherche en cours...</p>
+                </div>
+
+                <div id="resultsSection" class="mt-4" style="display: none;">
+                    <h4 class="mb-3">Produit recherché : <span id="searchedProduct"></span></h4>
+                    <div id="recommendationsContainer" class="row g-4"></div>
+                </div>
+
+                <div id="errorAlert" class="alert alert-danger mt-4" style="display: none;"></div>
+            </div>
+        </section>
+        <section class="page-section" id="cluster">
+            <div class="container">
+              <div class="text-center">
+                <h2 class="section-heading text-uppercase">Classification par Clustering</h2>
+                <h3 class="section-subheading text-muted">
+                  Entrez les caractéristiques du produit pour obtenir son cluster.
+                </h3>
+              </div>
+              <form id="clusterForm">
+                <div class="row align-items-stretch mb-5">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <input class="form-control" id="productName" type="text"
+                             placeholder="Nom du Produit *" required />
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <input class="form-control" id="Note" type="number" step="0.1"
+                             placeholder="Note du Produit (rate) *" required />
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <input class="form-control" id="Prix" type="number"
+                             placeholder="Prix *" required />
+                    </div>
+                  </div>
+                </div>
+                <div id="clusterResult" class="text-center mb-3"></div>
+                <div class="text-center">
+                  <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">
+                    Afficher le Cluster
+                  </button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+
+        <!-- Footer-->
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+        <script>
+            // Script de recommandation
+            const productInput = document.getElementById('productInput');
+            const typeaheadResults = document.getElementById('typeaheadResults');
+            let currentRequest = null;
+
+            productInput.addEventListener('input', async (e) => {
+                const query = e.target.value.toLowerCase();
+                if (query.length < 2) {
+                    typeaheadResults.style.display = 'none';
+                    return;
+                }
+
+                if (currentRequest) {
+                    currentRequest.abort();
+                }
+
+                currentRequest = new AbortController();
+                
+                try {
+                    const response = await fetch('/search-products', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ query }),
+                        signal: currentRequest.signal
+                    });
+                    
+                    const results = await response.json();
+                    showTypeahead(results);
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        console.error('Erreur de recherche :', err);
+                    }
+                }
+            });
+
+            function showTypeahead(results) {
+                typeaheadResults.innerHTML = results
+                    .map(product => `
+                        <div class="typeahead-item" data-name="${product.name}">
+                            ${product.name}
+                        </div>
+                    `).join('');
+                
+                typeaheadResults.style.display = results.length ? 'block' : 'none';
+                
+                document.querySelectorAll('.typeahead-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        productInput.value = item.dataset.name;
+                        typeaheadResults.style.display = 'none';
+                    });
+                });
+            }
+
+            document.getElementById('recommendBtn').addEventListener('click', async () => {
+                const productName = productInput.value.trim();
+                const topN = document.getElementById('recommendationCount').value;
+
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('errorAlert').style.display = 'none';
+                document.getElementById('resultsSection').style.display = 'none';
+
+                try {
+                    const response = await fetch('/recom', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            product_name: productName,
+                            top_n: topN
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.status === 'success') {
+                        document.getElementById('searchedProduct').textContent = data.input_product;
+                        displayRecommendations(data.recommendations);
+                        document.getElementById('resultsSection').style.display = 'block';
+                    } else {
+                        showError(data.message);
+                    }
+                } catch (error) {
+                    showError('Erreur de connexion au serveur');
+                } finally {
+                    document.getElementById('loading').style.display = 'none';
+                }
+            });
+
+            function displayRecommendations(recommendations) {
+                const container = document.getElementById('recommendationsContainer');
+                container.innerHTML = recommendations.map(rec => `
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm recommendation-card">
+                            <div class="card-body">
+                                <h5 class="card-title">${rec['Nom du produit']}</h5>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Prix :</span>
+                                    <span class="text-primary">${rec.Prix} €</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Note :</span>
+                                    <span class="badge bg-success">${rec.Note}/5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function showError(message) {
+                const errorDiv = document.getElementById('errorAlert');
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+            }
+        </script>
+    </body>
+</html>

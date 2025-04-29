@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Vision360°</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+    </head>
+   <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="signin">Vision360° </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <!-- Ici, tu peux ajouter les liens de la barre de navigation -->
+                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">decision-makers</a></li>
+                        <li class="nav-item"><a class="nav-link" href="dash">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="AI">AI tools</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#cluster">cluster</a></li>
+                        <li class="nav-item"><a class="nav-link" href="recommendation">Recomendation</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+                <div class="masthead-subheading">Welcome To Vision360°!</div>
+                <div class="masthead-heading text-uppercase">The ultimate solution for your company</div>
+                <!-- <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a> -->
+            </div>
+        </header>
+        <!-- Services Section -->
+<section class="page-section bg-light" id="services">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Our Services</h2>
+            <p class="text-muted">We offer a range of services designed to improve business performance and customer satisfaction.</p>
+        </div>
+        <div class="row">
+            <!-- Service 1: Anomaly Detection -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="service-item">
+                    <i class="fas fa-search fa-4x mb-3"></i>
+                    <h4 class="service-heading text-uppercase">Anomaly Detection</h4>
+                    <p class="text-muted">We use advanced algorithms to detect anomalies and inconsistencies in your data, ensuring high data quality and integrity.</p>
+                </div>
+            </div>
+            <!-- Service 2: Financial Balance Analysis -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="service-item">
+                    <i class="fas fa-chart-line fa-4x mb-3"></i>
+                    <h4 class="service-heading text-uppercase">Financial Balance Analysis</h4>
+                    <p class="text-muted">Our services help you analyze financial statements, identifying areas for optimization and ensuring financial stability.</p>
+                </div>
+            </div>
+            <!-- Service 3: Claim Minimization -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="service-item">
+                    <i class="fas fa-hand-holding-usd fa-4x mb-3"></i>
+                    <h4 class="service-heading text-uppercase">Claim Minimization</h4>
+                    <p class="text-muted">We assist in reducing the number of claims by identifying problem areas and recommending solutions to improve customer relations.</p>
+                </div>
+            </div>
+            <!-- Service 4: Customer Satisfaction -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="service-item">
+                    <i class="fas fa-smile fa-4x mb-3"></i>
+                    <h4 class="service-heading text-uppercase">Customer Satisfaction</h4>
+                    <p class="text-muted">We help measure and improve customer satisfaction, ensuring your business builds lasting and positive customer relationships.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="page-section" id="cluster">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="section-heading text-uppercase">Classification par Clustering</h2>
+        <h3 class="section-subheading text-muted">
+          Entrez les caractéristiques du produit pour obtenir son cluster.
+        </h3>
+      </div>
+      <form id="clusterForm">
+        <div class="row align-items-stretch mb-5">
+          <div class="col-md-4">
+            <div class="form-group">
+              <input class="form-control" id="productName" type="text"
+                     placeholder="Nom du Produit *" required />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <input class="form-control" id="Note" type="number" step="0.1"
+                     placeholder="Note du Produit (rate) *" required />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <input class="form-control" id="Prix" type="number"
+                     placeholder="Prix *" required />
+            </div>
+          </div>
+        </div>
+        <div id="clusterResult" class="text-center mb-3"></div>
+        <div class="text-center">
+          <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">
+            Afficher le Cluster
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+        <!-- Portfolio Grid-->
+        <section class="page-section bg-light" id="portfolio">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">decision-makers</h2>
+                    <h3 class="section-subheading text-muted">Members of decision-makers .</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- Portfolio item 1-->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" >
+                                <!-- <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div> -->
+                                <img class="img-fluid" src="{{ url_for('static', filename='assets/img/portfolio/11.png') }}" />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">cfo</div>
+                                <div class="portfolio-caption-subheading text-muted"> Chief Finacial Officer </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- Portfolio item 2-->
+                        <div class="portfolio-item">
+                            <!-- <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2"></a> -->
+                            <a class="portfolio-link" data-bs-toggle="modal">
+                                <!-- <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div> -->
+                                <img class="img-fluid" src="{{ url_for('static', filename='assets/img/portfolio/33.jpg') }}" />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">Sales Manager</div>
+                                <div class="portfolio-caption-subheading text-muted">Sales Manager</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- Portfolio item 3-->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" >
+                                <!-- <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div> -->
+                                <img class="img-fluid" src="{{ url_for('static', filename='assets/img/portfolio/44.jpg') }}"  />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">Internal Auditor</div>
+                                <div class="portfolio-caption-subheading text-muted"> Internal Auditor</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+                        
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal4">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="{{ url_for('static', filename='assets/img/portfolio/4.jpg') }}" alt="..." />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">Sheima Dalleli</div>
+                                <div class="portfolio-caption-subheading text-muted">Sheima.Dalleli@esprit.tn</div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
+                       
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal5">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="{{ url_for('static', filename='assets/img/portfolio/5.jpg') }}" alt="..." />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">Rafé Abdellaoui</div>
+                                <div class="portfolio-caption-subheading text-muted">Rafé.Abdellaoui@esprit.tn</div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="col-lg-4 col-sm-6">
+                       
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal6">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="{{ url_for('static', filename='assets/img/portfolio/6.jpg') }}" alt="..." />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">Bechir Bergachi</div>
+                                <div class="portfolio-caption-subheading text-muted">Bechir.Bergachi@esprit.tn</div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </section>
+        <!-- About-->
+      <!-- About-->
+<section class="page-section" id="about">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">About</h2>
+            <h3 class="section-subheading text-muted">Discover Smart Metrics and our Vision360° project.</h3>
+        </div>
+        <ul class="timeline">
+            <li>
+                <div class="timeline-image">
+                    <img class="rounded-circle img-fluid" src="{{ url_for('static', filename='assets/img/about/1.jpg') }}" alt="..." />
+                </div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4>2025</h4>
+                        <h4 class="subheading">Creation of Smart Metrics</h4>
+                    </div>
+                    <div class="timeline-body">
+                        <p class="text-muted">
+                            Smart Metrics was founded in 2025 with the ambition to turn complex data into clear and actionable insights, specializing in Business Intelligence and financial analysis.
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="timeline-inverted">
+                <div class="timeline-image">
+                    <img class="rounded-circle img-fluid" src="{{ url_for('static', filename='assets/img/about/2.jpg') }}" alt="..." />
+                </div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4>Mid-2025</h4>
+                        <h4 class="subheading">Birth of Vision360°</h4>
+                    </div>
+                    <div class="timeline-body">
+                        <p class="text-muted">
+                            Vision360° was launched to provide a complete and real-time view of financial and operational KPIs, empowering decision-makers with intuitive dashboards and strategic metrics.
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="timeline-image">
+                    <img class="rounded-circle img-fluid" src="{{ url_for('static', filename='assets/img/about/3.jpg') }}" alt="..." />
+                </div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4>2026</h4>
+                        <h4 class="subheading">Expanding Our Expertise</h4>
+                    </div>
+                    <div class="timeline-body">
+                        <p class="text-muted">
+                            Building on the success of Vision360°, Smart Metrics expanded its services to include anomaly detection, supplier trust analysis, financial KPIs optimization, and customer satisfaction analytics.
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="timeline-inverted">
+                <div class="timeline-image">
+                    <img class="rounded-circle img-fluid" src="{{ url_for('static', filename='assets/img/about/4.jpg') }}" alt="..." />
+                </div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4>Today</h4>
+                        <h4 class="subheading">Our Commitment</h4>
+                    </div>
+                    <div class="timeline-body">
+                        <p class="text-muted">
+                            Today, Smart Metrics continues to innovate, delivering precision, speed, and clarity to help organizations unlock the full potential of their data.
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="timeline-inverted">
+                <div class="timeline-image">
+                    <h4>
+                        Be Part
+                        <br />
+                        Of Our
+                        <br />
+                        Story!
+                    </h4>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+
+        <!-- Clients-->
+        <div class="py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-3 col-sm-6 my-3">
+                        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="{{ url_for('static', filename='assets/img/logos/microsoft.svg') }}" alt="..." aria-label="Microsoft Logo" /></a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 my-3">
+                        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="{{ url_for('static', filename='assets/img/logos/google.svg') }}" alt="..." aria-label="Google Logo" /></a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 my-3">
+                        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="{{ url_for('static', filename='assets/img/logos/facebook.svg') }}" alt="..." aria-label="Facebook Logo" /></a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 my-3">
+                        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="{{ url_for('static', filename='assets/img/logos/ibm.svg') }}" alt="..." aria-label="IBM Logo" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contact-->
+        <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Contact Us</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                </div>
+                <!-- * * * * * * * * * * * * * * *-->
+                <!-- * * SB Forms Contact Form * *-->
+                <!-- * * * * * * * * * * * * * * *-->
+                <!-- This form is pre-integrated with SB Forms.-->
+                <!-- To make this form functional, sign up at-->
+                <!-- https://startbootstrap.com/solution/contact-forms-->
+                <!-- to get an API token!-->
+                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                    <div class="row align-items-stretch mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Name input-->
+                                <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                            </div>
+                            <div class="form-group">
+                                <!-- Email address input-->
+                                <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
+                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                            </div>
+                            <div class="form-group mb-md-0">
+                                <!-- Phone number input-->
+                                <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-textarea mb-md-0">
+                                <!-- Message input-->
+                                <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
+                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Submit success message-->
+                    <!---->
+                    <!-- This is what your users will see when the form-->
+                    <!-- has successfully submitted-->
+                    <div class="d-none" id="submitSuccessMessage">
+                        <div class="text-center text-white mb-3">
+                            <div class="fw-bolder">Form submission successful!</div>
+                            To activate this form, sign up at
+                            <br />
+                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                        </div>
+                    </div>
+                    <!-- Submit error message-->
+                    <!---->
+                    <!-- This is what your users will see when there is-->
+                    <!-- an error submitting the form-->
+                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                    <!-- Submit Button-->
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
+                </form>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Portfolio Modals-->
+        <!-- Portfolio item 1 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="{{ url_for('static', filename='assets/img/close-icon.svg') }}"  alt= "Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="{{ url_for('static', filename='assets/img/portfolio/1.jpg') }}" alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Threads
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Illustration
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 2 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="{{ url_for('static', filename='assets/img/close-icon.svg') }}" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="{{ url_for('static', filename='assets/img/portfolio/2.jpg') }}" alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Explore
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Graphic Design
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 3 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">sr
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="{{ url_for('static', filename='assets/img/close-icon.svg') }}" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="{{ url_for('static', filename='assets/img/portfolio/3.jpg') }}" alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Finish
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Identity
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 4 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="{{ url_for('static', filename='assets/img/close-icon.svg') }}" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto"src="{{ url_for('static', filename='assets/img/portfolio/4.jpg') }}"alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Lines
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Branding
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 5 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="{{ url_for('static', filename='assets/img/close-icon.svg') }} alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="{{ url_for('static', filename='assets/img/portfolio/5.jpg') }}" alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Southwest
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Website Design
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 6 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">s
+                    <div class="close-modal" data-bs-dismiss="modal"><img rc="{{ url_for('static', filename='assets/img/close-icon.svg') }}" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="{{ url_for('static', filename='assets/img/portfolio/4.jpg') }}" alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Window
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Photography
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <!-- !-- Chat Button and Container -->
+<!-- Add this before the closing </body> tag in your index.html -->
+<!-- Chat popup container -->
+<div id="chat-popup" class="chat-popup">
+    <div class="chat-header">
+        <h5><i class="fas fa-robot"></i> Assistant Virtuel Monoprix</h5>
+        <button id="close-chat">×</button>
+    </div>
+    <div class="chat-body" id="chat-messages">
+        <div class="message bot">Bonjour ! Je suis l'assistant virtuel de Monoprix. Comment puis-je vous aider aujourd'hui ?</div>
+    </div>
+    <div class="typing-indicator" id="typing-indicator">
+        <i class="fas fa-circle-notch fa-spin"></i>
+        Réponse en cours...
+    </div>
+    <div class="chat-footer">
+        <input type="text" id="chat-input" placeholder="Tapez votre message..." />
+        <button id="send-button">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+        <!-- Chat button -->
+<button id="chat-button" class="chat-button">
+    <i class="fas fa-comments"></i>
+</button>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    .chat-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #007f4e;
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        transition: all 0.3s ease;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(0, 127, 78, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(0, 127, 78, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(0, 127, 78, 0); }
+    }
+
+    .chat-button:hover {
+        transform: scale(1.1);
+        background-color: #00693f;
+        animation: none;
+    }
+
+    .chat-popup {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 350px;
+        height: 500px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+        transform: scale(0);
+        opacity: 0;
+        transition: all 0.3s ease;
+        transform-origin: bottom right;
+    }
+
+    .chat-popup.active {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    .chat-header {
+        background-color: #007f4e;
+        color: white;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .chat-header h5 {
+        margin: 0;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .chat-header button {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .chat-body {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .typing-indicator {
+        padding: 10px 15px;
+        display: none;
+        align-items: center;
+        gap: 10px;
+        color: #666;
+        font-style: italic;
+    }
+
+    .chat-footer {
+        padding: 15px;
+        border-top: 1px solid #eee;
+        display: flex;
+        gap: 10px;
+    }
+
+    .chat-footer input {
+        flex: 1;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        outline: none;
+    }
+
+    .chat-footer input:focus {
+        border-color: #007f4e;
+    }
+
+    .chat-footer button {
+        background-color: #007f4e;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .message {
+        max-width: 80%;
+        padding: 10px 15px;
+        border-radius: 15px;
+        word-break: break-word;
+    }
+
+    .message.user {
+        align-self: flex-end;
+        background-color: #e3f2fd;
+        border-radius: 15px 15px 0 15px;
+    }
+
+    .message.bot {
+        align-self: flex-start;
+        background-color: #f5f5f5;
+        border-radius: 15px 15px 15px 0;
+    }
+
+    @media (max-width: 576px) {
+        .chat-popup {
+            width: 90%;
+            height: 70vh;
+            bottom: 80px;
+            right: 5%;
+        }
+    }
+</style>
+
+<script>
+    // Fonction de renommage des clusters
+    function renameClusters(clusterLabel) {
+      if (clusterLabel === 0 || clusterLabel === 1) {
+        return 'Top Produits';
+      } else if (clusterLabel === 3) {
+        return 'Produits Avec bonne réputation';
+      } else if (clusterLabel === 2) {
+        return 'Produits Faible Qualité';
+      } else {
+        return 'Inconnu';
+      }
+    }
+
+    // Gestion du submit : appel à /predict_cluster
+    document.getElementById('clusterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const payload = {
+        product_name: document.getElementById('productName').value,
+        Note: document.getElementById('Note').value,
+        Prix: document.getElementById('Prix').value
+      };
+      fetch('/predict_cluster', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(resp => resp.json())
+      .then(data => {
+        if (data.cluster !== undefined) {
+          const productType = renameClusters(data.cluster);
+          document.getElementById('clusterResult').innerText = 
+            'Produit « ' + payload.product_name + ' » → ' + productType;
+        } else {
+          document.getElementById('clusterResult').innerText =
+            'Erreur : ' + (data.error || 'réponse invalide');
+        }
+      })
+      .catch(err => {
+        document.getElementById('clusterResult').innerText =
+          'Erreur lors de la requête : ' + err;
+      });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const chatButton = document.getElementById('chat-button');
+        const chatPopup = document.getElementById('chat-popup');
+        const closeChat = document.getElementById('close-chat');
+        const chatInput = document.getElementById('chat-input');
+        const sendButton = document.getElementById('send-button');
+        const chatMessages = document.getElementById('chat-messages');
+        const typingIndicator = document.getElementById('typing-indicator');
+
+        chatButton.addEventListener('click', function() {
+            chatPopup.classList.toggle('active');
+            if (chatPopup.classList.contains('active')) {
+                chatButton.innerHTML = '<i class="fas fa-times"></i>';
+                chatInput.focus();
+            } else {
+                chatButton.innerHTML = '<i class="fas fa-comments"></i>';
+            }
+        });
+
+        closeChat.addEventListener('click', function() {
+            chatPopup.classList.remove('active');
+            chatButton.innerHTML = '<i class="fas fa-comments"></i>';
+        });
+
+        function addMessage(text, isUser) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            msgDiv.textContent = text;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            // Add user message to chat
+            addMessage(message, true);
+            chatInput.value = '';
+            
+            // Show typing indicator
+            typingIndicator.style.display = 'flex';
+            
+            try {
+                // Send message to backend
+                const response = await fetch('http://localhost:5000/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ message })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Add bot response to chat
+                addMessage(data.response, false);
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage("Désolé, une erreur s'est produite. Veuillez réessayer.", false);
+            } finally {
+                // Hide typing indicator
+                typingIndicator.style.display = 'none';
+            }
+        }
+
+        // Send message on button click
+        sendButton.addEventListener('click', sendMessage);
+        
+        // Send message on Enter key
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    });
+</script>
+    </body>
+</html>
